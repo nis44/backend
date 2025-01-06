@@ -2,14 +2,22 @@ import { v2 as cloudinary } from "cloudinary";
 import fs from "fs";
 
 cloudinary.config({
-    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-    api_key: process.env.CLOUDINARY_API_KEY,
-    api_secret: process.env.CLOUDINARY_API_SECRET,
+    cloud_name: 'dgkhrnvli',
+    api_key: '344555844332632',
+    api_secret: 'sUfglC2WkyfLimwBJJy-PZ4ZAf4',
 });
+
+
+// CLOUDINARY_CLOUD_NAME = dgkhrnvli
+// CLOUDINARY_API_KEY = 344555844332632
+// CLOUDINARY_API_SECRET = sUfglC2WkyfLimwBJJy-PZ4ZAf4
 
 const uploadOnCloudinary = async (localfilepath) => {
     try {
-        if(!localfilepath) return null;
+        if (!localfilepath) {
+            console.error("No local file path provided");
+            return null;
+        }
         const response = await cloudinary.uploader.upload(localfilepath, {
             resource_type: "auto"
         })
@@ -18,6 +26,7 @@ const uploadOnCloudinary = async (localfilepath) => {
         
     } catch (error) {
         fs.unlinkSync(localfilepath);
+        // console.error(localfilepath);
         return null;
     }
 }
